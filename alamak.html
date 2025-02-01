@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input URL</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            display: none;
+            font-size: 14px;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Input URL</h1>
+        <input type="text" id="urlInput" placeholder="Masukkan URL" />
+        <button id="submitButton">Submit</button>
+
+        <div id="loading">Loading...</div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            const url = document.getElementById('urlInput').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+
+            // Reset hasil dan loading
+            resultDiv.style.display = 'none';
+            loadingDiv.style.display = 'none';
+
+            if (url) {
+                loadingDiv.style.display = 'block'; // Tampilkan loading
+                resultDiv.innerHTML = ''; // Kosongkan hasil
+
+                // Ambil data user dan password dari file JSON
+                fetch('data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Simulasi loading selama 10 detik
+                        setTimeout(function() {
+                            loadingDiv.style.display = 'none'; // Sembunyikan loading
+                            resultDiv.innerHTML = `<a href="${url}" target="_blank">${url}</a> | user: ${data.user}, password: ${data.password}`;
+                            resultDiv.style.display = 'block'; // Tampilkan hasil
+                        }, 10000); // 10 detik
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        loadingDiv.style.display = 'none'; // Sembunyikan loading
+                        resultDiv.innerHTML = 'Error fetching data.';
+                        resultDiv.style.display = 'block'; // Tampilkan hasil
+                    });
+            } else {
+                resultDiv.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
