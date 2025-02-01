@@ -63,6 +63,7 @@
             background-color: #f8f9fa;
             display: none;
             font-size: 14px;
+            text-align: left; /* Align text to the left */
         }
 
         #loading {
@@ -120,9 +121,14 @@
                             const user = data[randomIndex].user;
                             const password = data[randomIndex].password;
 
-                            resultDiv.innerHTML = `<a href="${url}" target="_blank">${url}</a> | user: ${user}, password: ${password}`;
+                            // Tampilkan hasil dengan format terpisah
+                            resultDiv.innerHTML = `
+                                <a href="${url}" target="_blank">${url}</a><br>
+                                User: ${user}<br>
+                                Password: ${password}
+                            `;
                             resultDiv.style.display = 'block'; // Tampilkan hasil
-                        }, 10000); // 10 det ik
+                        }, 10000); // 10 detik
                     })
                     .catch(error => {
                         console.error('Error fetching data:', error);
