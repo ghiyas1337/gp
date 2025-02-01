@@ -3,12 +3,17 @@
         "user": "#1337",
         "password": "#1337"
     },
-    {
-        "user": "xtjkt2",
+    }
+      {
+        "user": "kesiswaan2",
+        "password": "res"
+    },
+      {
+        "user": "osis",
         "password": "nesas"
     },
-    {
-        "user": "xtjkt1",
+      {
+        "user": "kesiswaan",
         "password": "nesas"
-    }
+    },
 ]
